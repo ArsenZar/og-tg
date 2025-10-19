@@ -12,8 +12,9 @@
 
 <body>
 
-  <h2>Фіксація годин</h2>
+
   <form id="form">
+    <h2>Фіксація годин</h2>
     <label>Імʼя:</label>
     <select id="name">
       <option>Олена</option>
@@ -60,7 +61,7 @@
       };
 
       // 1️⃣ Відправляємо дані у n8n webhook
-      await fetch("https://n8n-cloud-instance/webhook/save-hours", {
+      await fetch("https://orion-group-2.app.n8n.cloud/webhook/save-hours", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data)
