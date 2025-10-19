@@ -1,23 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vanilla App Template</title>
+  <link rel="stylesheet" href="./css/styles.css" />
+</head>
+
+<body>
+
+
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vanilla App Template</title>
-    <link rel="stylesheet" href="./css/styles.css" />
+    <title>Відправка даних</title>
   </head>
-  <body>
-    <load src="./partials/header.html" icon-path="img/sprite.svg#logo" />
 
-    <main>
-      <!-- Loads the specified .html file -->
-      <load src="./partials/vite-promo.html" />
-      <load src="./partials/badges.html" />
-    </main>
 
-    <load src="./partials/footer.html" />
+  <h2>Фіксація годин</h2>
 
-    <script type="module" src="./main.js"></script>
-  </body>
+  <form id="form">
+    <label>Імʼя:</label>
+    <select id="name">
+      <option>Олена</option>
+      <option>Іван</option>
+      <option>Марія</option>
+    </select>
+
+    <label>Проєкт:</label>
+    <select id="project">
+      <option>Проєкт 1</option>
+      <option>Проєкт 2</option>
+      <option>Проєкт 3</option>
+    </select>
+
+    <label>Години:</label>
+    <select id="hours">
+      <option>1</option>
+      <option>2</option>
+      <option>3</option>
+      <option>4</option>
+      <option>5</option>
+      <option>6</option>
+      <option>7</option>
+      <option>8</option>
+      <option>9</option>
+      <option>10</option>
+    </select>
+
+    <button type="submit">Відправити</button>
+  </form>
+
+  <script>
+    const tg = window.Telegram.WebApp;
+    const form = document.getElementById("form");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const data = {
+        name: document.getElementById("name").value,
+        project: document.getElementById("project").value,
+        hours: document.getElementById("hours").value,
+        date: new Date().toLocaleDateString()
+      };
+
+      // 1️⃣ Відправляємо дані у n8n webhook
+      await fetch("https://n8n-cloud-instance/webhook/save-hours", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      });
+
+      // 2️⃣ Можна показати повідомлення користувачу
+      tg.showAlert("✅ Дані успішно відправлено!");
+      tg.close(); // закриє вікно WebApp
+    });
+  </script>
+
+  <script type="module" src="./main.js"></script>
+</body>
+
 </html>
