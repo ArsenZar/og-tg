@@ -42,8 +42,8 @@
       <option>10</option>
     </select>
 
-    <input type="submit">Відправити</input>
-    <p>fix submit</p>
+    <input type="submit" value="Відправити"></input>
+    <p>fix submit 0.1v</p>
   </form>
 
   <script>
@@ -61,7 +61,7 @@
       };
 
       // 1️⃣ Відправляємо дані у n8n webhook
-      await fetch("https://orion-group-2.app.n8n.cloud/webhook/save-hours", {
+      await fetch("https://orion-group-2.app.n8n.cloud/webhook-test/save-hours", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data)
